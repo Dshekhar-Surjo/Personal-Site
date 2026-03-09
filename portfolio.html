@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shekhar Dash - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ── Scoped to .portfolio-page so it won't conflict with styles.css ── */
+
+        .portfolio-page {
+            font-family: 'DM Sans', sans-serif;
+            color: #1a1a1a;
+            padding: 60px 20px 100px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .portfolio-page .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .portfolio-page .section-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            margin: 0 0 12px;
+            color: #111;
+        }
+
+        .portfolio-page .section-header p {
+            font-size: 1rem;
+            color: #777;
+            font-weight: 300;
+            max-width: 520px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* ── Category Block ── */
+        .portfolio-page .category {
+            margin-bottom: 90px;
+        }
+
+        .portfolio-page .category-label {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 32px;
+        }
+
+        .portfolio-page .category-label .number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 400;
+            color: #ddd;
+            line-height: 1;
+            min-width: 48px;
+        }
+
+        .portfolio-page .category-label .title-group h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin: 0 0 4px;
+            color: #111;
+        }
+
+        .portfolio-page .category-label .title-group span {
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #aaa;
+        }
+
+        /* ── Accent lines per category ── */
+        .portfolio-page .category:nth-child(1) .category-label .title-group h3 { color: #1a3a5c; }
+        .portfolio-page .category:nth-child(2) .category-label .title-group h3 { color: #2d4a1e; }
+        .portfolio-page .category:nth-child(3) .category-label .title-group h3 { color: #4a1e2d; }
+
+        /* ── Grid ── */
+        .portfolio-page .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        /* ── Card ── */
+        .portfolio-page .card {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .portfolio-page .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.10);
+        }
+
+        /* ── Image area ── */
+        .portfolio-page .card-image {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            overflow: hidden;
+            position: relative;
+            background: #f5f5f5;
+        }
+
+        .portfolio-page .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-page .card:hover .card-image img {
+            transform: scale(1.04);
+        }
+
+        /* Placeholder when no image yet */
+        .portfolio-page .card-image .placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #bbb;
+            font-size: 0.78rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .portfolio-page .card-image .placeholder svg {
+            opacity: 0.3;
+        }
+
+        /* Per-category placeholder tints */
+        .portfolio-page .category:nth-child(1) .card-image { background: #edf2f8; }
+        .portfolio-page .category:nth-child(2) .card-image { background: #edf4ea; }
+        .portfolio-page .category:nth-child(3) .card-image { background: #f8edf0; }
+
+        /* ── Card body ── */
+        .portfolio-page .card-body {
+            padding: 20px 22px 22px;
+        }
+
+        .portfolio-page .card-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 2px;
+            margin-bottom: 10px;
+        }
+
+        .portfolio-page .category:nth-child(1) .card-tag { background: #dce9f5; color: #1a3a5c; }
+        .portfolio-page .category:nth-child(2) .card-tag { background: #ddeedd; color: #2d4a1e; }
+        .portfolio-page .category:nth-child(3) .card-tag { background: #f5dde4; color: #4a1e2d; }
+
+        .portfolio-page .card-body h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0 0 8px;
+            line-height: 1.35;
+            color: #111;
+        }
+
+        .portfolio-page .card-body p {
+            font-size: 0.875rem;
+            color: #666;
+            line-height: 1.6;
+            margin: 0 0 14px;
+            font-weight: 300;
+        }
+
+        .portfolio-page .card-link {
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: gap 0.2s;
+        }
+
+        .portfolio-page .category:nth-child(1) .card-link { color: #1a3a5c; }
+        .portfolio-page .category:nth-child(2) .card-link { color: #2d4a1e; }
+        .portfolio-page .category:nth-child(3) .card-link { color: #4a1e2d; }
+
+        .portfolio-page .card-link:hover { gap: 9px; }
+
+        /* ── Divider ── */
+        .portfolio-page .divider {
+            border: none;
+            border-top: 1px solid #ebebeb;
+            margin: 0 0 90px;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 640px) {
+            .portfolio-page .grid {
+                grid-template-columns: 1fr;
+            }
+            .portfolio-page {
+                padding: 40px 16px 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="publications.html" class="active">Portfolio</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="portfolio-page">
+
+            <div class="section-header">
+                <h2>Portfolio & Projects</h2>
+                <p>A selection of work across filmmaking, instructional design, and data research.</p>
+            </div>
+
+            <!-- ════════════════════════════════════════════
+                 CATEGORY 1 — FILM
+            ═════════════════════════════════════════════ -->
+            <div class="category">
+                <div class="category-label">
+                    <span class="number">01</span>
+                    <div class="title-group">
+                        <h3>Film & Cinematic Work</h3>
+                        <span>Direction · Screenplay · Production</span>
+                    </div>
+                </div>
+
+                <div class="grid">
+
+                    <!-- Film Card 1 -->
+                    <div class="card">
+                        <div class="card-image">
+                            <!-- REPLACE src with your image path, e.g. src="images/laal-morog.jpg" -->
+                            <!-- Delete the <div class="placeholder"> block once you add an image -->
+                            <img src="" alt="Laal Moroger Jhuti" style="display:none;">
+                            <div class="placeholder">
+                                <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M7 2v20M17 2v20M2 12h20M2 7h5M2 17h5M17 7h5M17 17h5"/></svg>
+                                Add image
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <span class="card-tag">Film</span>
+                            <!-- CHANGE: Update title, description, year, and link -->
+                            <h4>Laal Moroger Jhuti</h4>
+                            <p>National Award-winning film. Post-production Supervisor, 2021–22. Short description of the film's subject, tone, or impact.</p>
+                            <a href="#" class="card-link">View project →</a>
+                        </div>
+                    </div>
+
+                    <!-- Film Card 2 -->
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="" alt="Bildakini" style="display:none;">
+                            <div class="placeholder">
+                                <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M7 2v20M17 2v20M2 12h20M2 7h5M2 17h5M17 7h5M17 17h5"/></svg>
+                                Add image
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <span class="card-tag">Screenplay</span>
+                            <h4>Bildakini</h4>
+                            <p>National Film Grant-winning feature film. Screenplay Writer, 2022–23. Brief description of narrative or creative direction.</p>
+                            <a href="#" class="card-link">View project →</a>
+                        </div>
+                    </div>
+
+                    <!-- Film Card 3 -->
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="" alt="Black Mirror Films Project" style="display:none;">
+                            <div class="placeholder">
+                                <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M7 2v20M17 2v20M2 12h20M2 7h5M2 17h5M17 7h5M17 17h5"/></svg>
+                                Add image
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <span class="card-tag">Direction</span>
+                            <!-- CHANGE: Replace with your third film project -->
+                            <h4>Bengali Poets Film</h4>
+                            <p>Screenplay on Kazi Nazrul Islam and Jibananda Das. Director & Screenplay Writer, Black Mirror Films, 2024–26.</p>
+                            <a href="#" class="card-link">View project →</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- ════════════════════════════════════════════
+                 CATEGORY 2 — INSTRUCTIONAL DESIGN
+            ═════════════════════════════════════════════ -->
+            <div class="category">
+                <div class="category-label">
+                    <span class="number">02</span>
+                    <div class="title-group">
+                        <h3>Instructional Design</h3>
+                        <span>EdTech · Curriculum · Learning Experience</span>
+                    </div>
+                </div>
+
+                <div class="grid">
+
+                    <!-- Instructional Design Card 1 -->
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="" alt="Rushpath" style="display:none;">
+                            <div class="placeholder">
+                                <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                                Add image
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <span class="card-tag">EdTech</span>
+                            <!-- CHANGE: Update with your instructional design project -->
+                            <h4>Rushpath — Gamified Learning Platform</h4>
+                            <p>EdTech gamification project at Cosmic Soup Limited. Brief description of the learning design approach and target audience.</p>
+                            <a href="https://rushpath.com" class="card-link" target="_blank">Visit site →</a>
+                        </div>
+                    </div>
+
+                    <!-- Instructional Design Card 2 -->
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="" alt="Curriculum Design" style="display:none;">
+                            <div class="placeholder">
+                                <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                                Add image
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <span class="card-tag">Curriculum</span>
+                            <!-- CHANGE: Replace with your second instructional design project -->
+                            <h4>Film Studies Curriculum — Jagannath University</h4>
+                            <p>Course design for Film Direction, Screenplay Writing, and Film History. Description of pedagogical approach or notable outcomes.</p>
+                            <a href="#" class="card-link">View details →</a>
+                        </div>
+                    </div>
+
+                    <!-- Instructional Design Card 3 (optional — delete if you only want 2) -->
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="" alt="VR Coaching" style="display:none;">
+                            <div class="placeholder">
+                                <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                                Add image
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <span class="card-tag">VR Learning</span>
+                            <!-- CHANGE: Replace with your third instructional design project -->
+                            <h4>VR-Based Athletic Coaching Content</h4>
+                            <p>Instructional content and product development for VER Coaching, a VR athletic training platform. Brief description of the design challenge.</p>
+                            <a href="#" class="card-link">View details →</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- ════════════════════════════════════════════
+                 CATEGORY 3 — DATA ANALYSIS & VISUALIZATION
+            ═════════════════════════════════════════════ -->
+            <div class="category">
+                <div class="category-label">
+                    <span class="number">03</span>
+                    <div class="title-group">
+                        <h3>Data Analysis & Visualization</h3>
+                        <span>Research · MMLA · Learning Analytics</span>
+                    </div>
+                </div>
+
+                <div class="grid">
+
+                    <!-- Data Card 1 -->
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="" alt="Data Visualization Project" style="display:none;">
+                            <div class="placeholder">
+                                <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+                                Add image
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <span class="card-tag">Research</span>
+                            <!-- CHANGE: Replace with your first data/research project -->
+                            <h4>Technological Evolution in Bangladeshi Cinema</h4>
+                            <p>Forthcoming book chapter (DFP Bangladesh, 2026). Brief description of the analysis methodology or key findings.</p>
+                            <a href="#" class="card-link">Read more →</a>
+                        </div>
+                    </div>
+
+                    <!-- Data Card 2 -->
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="" alt="Learning Analytics" style="display:none;">
+                            <div class="placeholder">
+                                <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+                                Add image
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <span class="card-tag">Visualization</span>
+                            <!-- CHANGE: Replace with your second data project -->
+                            <h4>Learning Analytics Dashboard</h4>
+                            <p>Description of a data analysis or visualization project — could be from your MEITE coursework, research lab, or rushpath platform data.</p>
+                            <a href="#" class="card-link">View project →</a>
+                        </div>
+                    </div>
+
+                    <!-- Data Card 3 (optional) -->
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="" alt="MMLA Research" style="display:none;">
+                            <div class="placeholder">
+                                <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+                                Add image
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <span class="card-tag">MMLA</span>
+                            <!-- CHANGE: Replace with your third data project -->
+                            <h4>Multimodal Learning Analytics Study</h4>
+                            <p>Research project exploring embodied learning through data. Brief description of methods used and insights generated.</p>
+                            <a href="#" class="card-link">Read more →</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div><!-- end .portfolio-page -->
+    </div><!-- end .container -->
+
+    <script>
+        // Auto-show images and hide placeholder when src is set
+        document.querySelectorAll('.portfolio-page .card-image').forEach(function(container) {
+            var img = container.querySelector('img');
+            var placeholder = container.querySelector('.placeholder');
+            if (img && img.src && img.src !== window.location.href) {
+                img.style.display = 'block';
+                if (placeholder) placeholder.style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+</html>
